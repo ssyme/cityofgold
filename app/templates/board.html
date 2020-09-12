@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<h2>Browsing /{{ board.name }}/</h2>
+
+{% if current_user.is_authenticated %}
+<form action="{{ url_for('boards.board', boardname=board.name) }}" method="POST">
+  {{ form.hidden_tag() }}
+
+  {% for message in form.content.errors %}
+    {{ message }}
+  {% endfor %}
+  {{ form.content.label }}:<br>
+  {{ form.content }}<br>
+
+  {{ form.submit }}
+</form>
+{% else %}
+Please log in to post on this board...
+{% endif %}
+
+<h3>Posts</h3>
+<ul class="posts">
+  {% for post in posts %}
+  <li class="post">
+    <a class="nostyle" href="{{ url_for('boards.post', boardname=post.board.name, postid=post.id) }}">
+      <p class="msg">{{ post.content }}</p></a>
+    
+    <p class="author">
+      <img class="av-sm" alt="user profile picture" src="{{ url_for('static', filename='media/users/'+post.user.avatar) }}"/>
+      <a href="{{ url_for('users.profile', username=post.user.username) }}">{{ post.user.username }}</a>
+      {{ post.date }}
+    </p>
+  </li>
+{% endfor %}
+</ul>
+{% endblock %}

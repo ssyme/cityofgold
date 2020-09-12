@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<ul class="posts">
+  <li class="post">
+    <a class="nostyle" href="{{ url_for('boards.post', boardname=post.board.name, postid=post.id) }}">
+      <p class="msg">{{ post.content }}</p></a>
+    
+    <p class="author">
+      <img class="av-sm" alt="user profile picture" src="{{ url_for('static', filename='media/users/'+post.user.avatar) }}"/>
+      <a href="{{ url_for('users.profile', username=post.user.username) }}">{{ post.user.username }}</a>
+      {{ post.date }}
+    </p>
+  </li>
+</ul>
+
+<h3>Reply</h3>
+{% if current_user.is_authenticated %}
+<form action="{{ url_for('boards.post', boardname=post.board.name, postid=post.id) }}" method="POST">
+  {{ form.hidden_tag() }}
+
+  {% for message in form.content.errors %}
+    {{ message }}
+  {% endfor %}
+  {{ form.content.label }}:<br>
+  {{ form.content }}<br><br>
+
+  {{ form.submit }}
+</form>
+{% else %}
+Login to post a reply
+{% endif %}
+
+<h3>Replies</h3>
+<ul class="posts">
+  {% for post in replies %}
+  <li class="post">
+    <p class="msg">{{ post.content }}</p>
+    
+    <p class="author">
+      <img class="av-sm" alt="user profile picture" src="{{ url_for('static', filename='media/users/'+post.user.avatar) }}"/>
+      <a href="{{ url_for('users.profile', username=post.user.username) }}">{{ post.user.username }}</a>
+      {{ post.date }}
+    </p>
+  </li>
+{% endfor %}
+</ul>
+{% endblock %}

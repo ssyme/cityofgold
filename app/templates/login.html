@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<p>Log in below:</p>
+
+<form action="{{ url_for('users.login') }}" method="POST">
+  {{ form.hidden_tag() }}
+
+  {% for message in form.username.errors %}
+  {{ message }}
+  {% endfor %}
+  {{ form.username.label }}:<br>
+  {{ form.username }}<br>
+
+  {% for message in form.password.errors %}
+  {{ message }}
+  {% endfor %}
+  {{ form.password.label }}:<br>
+  {{ form.password }}<br><br>
+
+  {{ form.submit }}
+</form>
+
+<p>Alternatively, <a href="{{ url_for('users.register') }}">register</a> here.</p>
+{% endblock %}

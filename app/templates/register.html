@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<p>Register below. Note that as we do not store email addresses account recovery is out of the question, so it is important you pick a password you will remember.</p>
+
+<form action="{{ url_for('users.register') }}" method="POST">
+  {{ form.hidden_tag() }}
+
+  {% for message in form.username.errors %}
+  {{ message }}
+  {% endfor %}
+  {{ form.username.label }}:<br>
+  {{ form.username }}<br>
+
+  {% for message in form.password.errors %}
+  {{ message }}
+  {% endfor %}
+  {{ form.password.label }}:<br>
+  {{ form.password }}<br>
+
+  {% for message in form.confirmpassword.errors %}
+  {{ message }}
+  {% endfor %}
+  {{ form.confirmpassword.label }}:<br>
+  {{ form.confirmpassword }}<br><br>
+
+  {{ form.submit }}
+</form>
+{% endblock %}

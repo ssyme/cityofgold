@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>++ The CoG ++</title>
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet"/>
+  </head>
+  <body>
+    <div class="nav">
+      <ul>
+	<span>Most Popular Boards &gt;</span>
+	{% for board in boards %}
+	<li><a href="{{ url_for('boards.board', boardname=board.name) }}">/{{ board.name }}/</a></li>
+	{% endfor %}
+      </ul>
+    </div>
+    
+    <main>
+      <div class="header">
+	<a class="nostyle" href="/"><h1>The City of Gold</h1></a>
+	<p class="quote"><i>"Though my heart is made of lead I cannot choose but weep."</i></p>
+      </div>
+
+      <div class="authbtns">
+	{% if not current_user.is_authenticated %}
+	<form class="btn" action="{{ url_for('users.login') }}"><button>Log In</button></form><br>
+	<form class="btn" action="{{ url_for('users.register') }}"><button>Register</button></form>
+	{% else %}
+	<form class="btn" action="{{ url_for('users.profile', username=current_user.username) }}"><button>Profile</button></form><br>
+	<form class="btn" action="{{ url_for('users.logout') }}"><button>Log Out</button></form><br>
+	{% endif %}
+      </div>
+
+      <div class="clear"></div>
+
+      {% block body %}
+      {% endblock %}
+
+      <div class="clear"></div><br><br>
+      
+      <footer>
+	<p>435 registered users * 32 currently online</p>
+	<p>hosting 2mb of text * 10mb of images</p>
+	
+	<p class="copy">absolutely no copyright (c) MMXX<br>feel free to steal any/all code, images etc</p>
+
+	<img alt="The Happy Prince" src="{{ url_for('static', filename='media/thp.jpg') }}"/>
+
+	<p>- thp</p>
+      </footer>
+      
+      </main>
+  </body>
+</html>

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block body %}
+      <p>Welcome to the <span class="cog">City Of Gold</span> a traditional and functionally minimal web forum. Register above, no email required, and browse the above boards. THP (COG staff in other words) asks that you adhere to <a href="https://4chan.org/rules">4gag rules</a> until we formulate our own. Such meta discussion will usually take place in <a href="/board/proposals">/proposals/</a> feel free to join in.</p>
+      
+      <h2>Hot Posts Across All Boards</h2>
+      <ul class="posts">
+	{% for post in topposts %}
+	<li class="post">
+	  <a class="nostyle" href="{{ url_for('boards.post', boardname=post.board.name, postid=post.id) }}">
+	    <p class="msg">{{ post.content }}</p></a>
+    
+	  <p class="author">
+	    <img class="av-sm" alt="user profile picture" src="{{ url_for('static', filename='media/users/'+post.user.avatar) }}"/>
+	    <a href="{{ url_for('users.profile', username=post.user.username) }}">{{ post.user.username }}</a>
+	    {{ post.date }} in
+	    <a href="{{ url_for('boards.board', boardname=post.board.name) }}">/{{ post.board.name }}/</a>
+	  </p>
+	</li>
+	{% endfor %}
+      </ul>
+
+      <h2>Useful Links</h2>
+{% endblock %}

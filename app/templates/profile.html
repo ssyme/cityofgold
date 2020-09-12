@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<h3>{{ user.username }}'s Profile</h3>
+{% if user.avatar %}
+<img alt="profile picture" src="{{ url_for('static', filename='media/users/'+user.avatar) }}" class="av-big"/>
+{% endif %}
+
+<div class="details">
+  <p><i>user joined {{ user.joined }}</i></p>
+  <p>{% if user.bio %}{{ user.bio }}{% else %}<i>This user has no bio...</i>{% endif %}</p>
+</div>
+
+<div class="clear"></div>
+
+{% if current_user == user %}
+<h3>Edit Profile</h3>
+<p>Only you can see this bit.</p>
+
+<form action="{{ url_for('users.profile', username=user.username) }}" method="POST" enctype="multipart/form-data">
+  {{ form.hidden_tag() }}
+
+  {% for message in form.bio.errors %}
+  {{ message }}
+  {% endfor %}
+  {{ form.bio.label }}:<br>
+  {{ form.bio }}<br><br>
+
+  {% for message in form.avatar.errors %}
+  {{ message }}
+  {% endfor %}
+  {{ form.avatar.label }}:<br>
+  {{ form.avatar }}<br><br>
+  
+  {{ form.submit }}
+</form>
+{% endif %}
+{% endblock %}
