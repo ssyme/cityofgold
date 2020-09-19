@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block body %}
-      <p>Welcome to the <span class="cog">City Of Gold</span> a traditional and functionally minimal web forum. Register above, no email required, and browse the above boards. THP (COG staff in other words) asks that you adhere to <a href="https://4chan.org/rules">4gag rules</a> until we formulate our own. Such meta discussion will usually take place in <a href="/board/proposals">/proposals/</a> feel free to join in.</p>
+      <p>Welcome to <span class="nc">Neochina</span> a traditional and functionally minimal web forum. Register above, no email required, and browse the above boards. THP (<span class="nc">NC</span> staff in other words) asks that you adhere to <a href="https://4chan.org/rules">4gag rules</a> until we formulate our own. Such meta discussion will usually take place in <a href="/board/proposals">/proposals/</a> feel free to join in.</p>
       
       <h2>Hot Posts Across All Boards</h2>
       <ul class="posts">
@@ -11,8 +11,10 @@
 	    <p class="msg">{{ post.content }}</p></a>
     
 	  <p class="author">
-	    <img class="av-sm" alt="user profile picture" src="{{ url_for('static', filename='media/users/'+post.user.avatar) }}"/>
-	    <a href="{{ url_for('users.profile', username=post.user.username) }}">{{ post.user.username }}</a>
+	    <a href="{{ url_for('users.profile', username=post.user.username) }}" class="nounder">
+	      <img class="av-sm" alt="user profile picture" src="{{ url_for('static', filename='media/users/'+post.user.avatar) }}"/>
+	    </a>
+	    <a class="name" href="{{ url_for('users.profile', username=post.user.username) }}">{{ post.user.username }}</a>
 	    {{ post.date }} in
 	    <a href="{{ url_for('boards.board', boardname=post.board.name) }}">/{{ post.board.name }}/</a>
 	  </p>
@@ -21,4 +23,16 @@
       </ul>
 
       <h2>Useful Links</h2>
+      <div class="hotlinks">
+	<img alt="Eyeball" src="{{ url_for('static', filename='media/homeimage.png') }}" class="secimg"/>
+	<ul>
+	  <li><a href="{{ url_for('main.index') }}">Home - You are here</a></li>
+	  <li><a href="{{ url_for('boards.board', boardname='lounge') }}">Lounge - General chat</a></li>
+	  <li><a href="{{ url_for('boards.board', boardname='proposals') }}">Proposals Board - Meta discussion</a></li>
+	  <li><a href="https://s3.amazonaws.com/arena-attachments/406213/42bdb859549f609953a0ca61aca0bee3.pdf">Useful book - Fanged Noumena</a></li>
+	  <li><a href="https://www.marxists.org/admin/books/manifesto/Manifesto.pdf">Important pamphlet - Communist Manifesto</a></li>
+	  <li><a href="http://triggs.djvu.org/djvu-editions.com/BIBLES/KJV/Download.pdf">Also good book - 1611 KJV</a></li>	
+	</ul>
+	<code>i do not own image shown left</code>
+      </div>
 {% endblock %}

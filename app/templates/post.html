@@ -7,8 +7,10 @@
       <p class="msg">{{ post.content }}</p></a>
     
     <p class="author">
-      <img class="av-sm" alt="user profile picture" src="{{ url_for('static', filename='media/users/'+post.user.avatar) }}"/>
-      <a href="{{ url_for('users.profile', username=post.user.username) }}">{{ post.user.username }}</a>
+      <a href="{{ url_for('users.profile', username=post.user.username) }}" class="nounder">
+	<img class="av-sm" alt="user profile picture" src="{{ url_for('static', filename='media/users/'+post.user.avatar) }}"/>
+      </a>
+      <a class="name" href="{{ url_for('users.profile', username=post.user.username) }}">{{ post.user.username }}</a>
       {{ post.date }}
     </p>
   </li>
@@ -38,8 +40,10 @@ Login to post a reply
     <p class="msg">{{ post.content }}</p>
     
     <p class="author">
-      <img class="av-sm" alt="user profile picture" src="{{ url_for('static', filename='media/users/'+post.user.avatar) }}"/>
-      <a href="{{ url_for('users.profile', username=post.user.username) }}">{{ post.user.username }}</a>
+      <a href="{{ url_for('users.profile', username=post.user.username) }}" class="nounder">
+	<img class="av-sm" alt="user profile picture" src="{{ url_for('static', filename='media/users/'+post.user.avatar) }}"/>
+      </a>
+      <a class="name" href="{{ url_for('users.profile', username=post.user.username) }}">{{ post.user.username }}</a>
       {{ post.date }}
     </p>
   </li>

@@ -2,8 +2,9 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8"/>
-    <title>City Of Gold</title>
+    <title>Neochina</title>
     <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body>
     <div class="nav">
@@ -17,8 +18,8 @@
     
     <main>
       <div class="header">
-	<a class="nostyle" href="/"><h1>The City of Gold</h1></a>
-	<p class="quote"><i>"Though my heart is made of lead I cannot choose but weep."</i></p>
+	<a class="nostyle" href="/"><h1>Neochina</h1></a>
+	<p class="quote"><i>Nothing human makes it out of the near future.</i></p>
       </div>
 
       <div class="authbtns">
@@ -39,10 +40,10 @@
       <div class="clear"></div><br><br>
       
       <footer>
-	<p>435 registered users * 32 currently online</p>
-	<p>hosting 2mb of text * 10mb of images</p>
+	<p>{{ nousers }} registered users * {{ noposts }} total posts</p>
+	<p>hosting {{ sizeoftext }} of text * {{ sizeofmedia }} of images</p>
 	
-	<p class="copy">absolutely no copyright (c) MMXX<br>feel free to steal any/all code, images etc</p>
+	<p class="copy"><code>absolutely no copyright (c) MMXX<br>feel free to steal any/all code, images etc</code></p>
 
 	<img alt="The Happy Prince" src="{{ url_for('static', filename='media/thp.jpg') }}"/>
 

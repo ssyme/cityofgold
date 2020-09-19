@@ -1,6 +1,7 @@
 from os import getcwd
 from os.path import join, splitext
 from random import SystemRandom
+from subprocess import check_output
 
 from flask import (
     abort,
@@ -21,7 +22,7 @@ from werkzeug.utils import secure_filename
 from werkzeug.urls import url_parse
 
 from ..forms import LoginForm, RegisterForm, EditProfileForm
-from ..models import User, Board
+from ..models import User, Board, Post
 from ..extensions import db
 from ..settings import UPLOAD_FOLDER
 
@@ -48,7 +49,15 @@ def login():
 
     boards = list(sorted(Board.query.all(),
                          key=lambda x: x.hits, reverse=True))[:5]
-    return render_template("login.html", form=form, boards=boards)
+    sizeofmedia = check_output(["du", "-h", "app/static/media/users"]).decode(
+        ).split("\t")[0]
+    sizeoftext = check_output(["du", "-h", "app/neochina.sqlite3"]).decode(
+        ).split("\t")[0]
+    return render_template("login.html", form=form, boards=boards,
+                           sizeofmedia=sizeofmedia,
+                           sizeoftext=sizeoftext,
+                           nousers=len(Board.query.all()),
+                           noposts=len(Post.query.all()))
 
 @users.route("/logout")
 def logout():
@@ -71,7 +80,15 @@ def register():
 
     boards = list(sorted(Board.query.all(),
                          key=lambda x: x.hits, reverse=True))[:5]
-    return render_template("register.html", form=form, boards=boards)
+    sizeofmedia = check_output(["du", "-h", "app/static/media/users"]).decode(
+        ).split("\t")[0]
+    sizeoftext = check_output(["du", "-h", "app/neochina.sqlite3"]).decode(
+        ).split("\t")[0]
+    return render_template("register.html", form=form, boards=boards,
+                           sizeofmedia=sizeofmedia.lower(),
+                           sizeoftext=sizeoftext.lower(),
+                           nousers=len(Board.query.all()),
+                           noposts=len(Post.query.all()))
 
 @users.route("/<username>", methods=["GET", "POST"])
 def profile(username):
@@ -101,4 +118,12 @@ def profile(username):
 
     boards = list(sorted(Board.query.all(),
                          key=lambda x: x.hits, reverse=True))[:5]
-    return render_template("profile.html", user=user, form=form, boards=boards)
+    sizeofmedia = check_output(["du", "-h", "app/static/media/users"]).decode(
+        ).split("\t")[0]
+    sizeoftext = check_output(["du", "-h", "app/neochina.sqlite3"]).decode(
+        ).split("\t")[0]
+    return render_template("profile.html", user=user, form=form, boards=boards,
+                           sizeofmedia=sizeofmedia.lower(),
+                           sizeoftext=sizeoftext.lower(),
+                           nousers=len(Board.query.all()),
+                           noposts=len(Post.query.all()))

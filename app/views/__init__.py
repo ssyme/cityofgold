@@ -1,3 +1,5 @@
+from subprocess import check_output
+
 from flask import Blueprint, render_template
 
 from ..models import Board, Post
@@ -13,7 +15,16 @@ def index():
                          key=lambda x: x.hits, reverse=True))[:5]
     topposts = list(sorted(Post.query.all(), key=lambda x: x.hits,
                            reverse=True))[:5]
-    return render_template("index.html", boards=boards, topposts=topposts)
+    sizeofmedia = check_output(["du", "-h", "app/static/media/users"]).decode(
+        ).split("\t")[0]
+    sizeoftext = check_output(["du", "-h", "app/neochina.sqlite3"]).decode(
+        ).split("\t")[0]
+    return render_template("index.html", boards=boards,
+                           topposts=topposts,
+                           sizeofmedia=sizeofmedia.lower(),
+                           sizeoftext=sizeoftext.lower(),
+                           nousers=len(Board.query.all()),
+                           noposts=len(Post.query.all()))
 
 @main.route("/createdb")
 def createall():

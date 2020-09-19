@@ -1,3 +1,6 @@
+from subprocess import check_output
+from subprocess import check_output
+
 from flask import (
     Blueprint,
     redirect,
@@ -34,8 +37,17 @@ def board(boardname):
 
     boards = list(sorted(Board.query.all(),
                          key=lambda x: x.hits, reverse=True))[:5]
+    sizeofmedia = check_output(["du", "-h", "app/static/media/users"]).decode(
+        ).split("\t")[0]
+    sizeoftext = check_output(["du", "-h", "app/neochina.sqlite3"]).decode(
+        ).split("\t")[0]
+
     return render_template("board.html", boards=boards, board=board, form=form,
-                           posts=reversed(board.posts))
+                           posts=reversed(board.posts),
+                           sizeofmedia=sizeofmedia.lower(),
+                           sizeoftext=sizeoftext.lower(),
+                           nousers=len(Board.query.all()),
+                           noposts=len(Post.query.all()))
 
 @boards.route("/<boardname>/post/<postid>", methods=["GET", "POST"])
 def post(boardname, postid):
@@ -63,5 +75,13 @@ def post(boardname, postid):
 
     boards = list(sorted(Board.query.all(),
                          key=lambda x: x.hits, reverse=True))[:5]
+    sizeofmedia = check_output(["du", "-h", "app/static/media/users"]).decode(
+        ).split("\t")[0]
+    sizeoftext = check_output(["du", "-h", "app/neochina.sqlite3"]).decode(
+        ).split("\t")[0]
     return render_template("post.html", boards=boards, post=post, form=form,
-                           replies=post.replies)
+                           replies=post.replies,
+                           sizeofmedia=sizeofmedia.lower(),
+                           sizeoftext=sizeoftext.lower(),
+                           nousers=len(Board.query.all()),
+                           noposts=len(Post.query.all()))

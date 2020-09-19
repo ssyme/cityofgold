@@ -1,6 +1,22 @@
+:root {
+    --green: #2cd418;
+    --red:   #c72a2a;
+    --pink:  #d131ff;
+    --black: #111111;
+    --white: #c5c8c6;
+
+    --fg:     var(--white);
+    --bg:     var(--black);
+    --bold:   var(--green);
+    --accent: var(--red);
+    --links:  var(--pink);
+}
+
 body {
-    background-color: #1d1f21;
-    color: #c5c8c6;
+    background-color: var(--bg);
+    color: var(--fg);
+    font-family: sans-serif;
+    font-size: 0.8em;
 }
 
 .clear {
@@ -11,11 +27,17 @@ body {
 form.btn {
     display: inline;
 }
+
+a.nounder {
+    text-decoration: none;
+}
 /* typography */
-h1, .cog {
+h1, .nc {
     font-size: 1.8em;
     font-variant: small-caps;
-    color: #f0c674;
+    color: var(--bold);
+    font-family: serif;
+    font-weight: bold;
 }
 
 h2 {
@@ -24,21 +46,21 @@ h2 {
 }
 
 .quote {
-    color: #a54242;
+    color: var(--accent);
 }
 
 a {
-    color: #81a;
+    color: var(--links);
     font-family: monospace;
 }
 
 a.nostyle {
     font-family: unset;
-    color: #c5c8c6;
+    color: var(--fg);
     text-decoration: none;
 }
 
-.cog {
+.nc {
     font-size: 1em;
 }
 /* nav */
@@ -49,7 +71,7 @@ a.nostyle {
     font-family: sans-serif;
     font-size: 0.8em;
     padding: 2px;
-    background-color: #a54242;
+    background-color: var(--accent);
 }
 
 .nav ul {
@@ -63,9 +85,10 @@ a.nostyle {
 }
 
 .nav a {
-    color: #c5c8c6;
+    color: var(--fg);
     text-decoration: none;
     font-family: sans-serif;
+    font-size: 1.1em;
 }
 /* main */
 main {
@@ -96,13 +119,13 @@ main {
     margin: 0;
 }
 
-.author {
+.author, .hotlinks code {
     font-family: monospace;
     position: relative;
     opacity: 0.8;
 }
 
-.author a {
+.author .name {
     position: absolute;
 }
 
@@ -111,13 +134,28 @@ main {
     list-style: none;
 }
  /* hotlinks */
-.hotlinks {
-    margin-bottom: 60px;
+.secimg {
+    width: 40%;
+    max-height: 500px;
+    float: left;
+    margin-right: 45px;
 }
 
-.hotlinks a {
-    display: block;
-    margin-bottom: 5px;
+.hotlinks {
+    position: relative;
+    float: left;
+}
+
+.hotlinks ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    float: left;
+    margin-bottom: 30px;
+}
+
+.hotlinks code {
+    float: left;
 }
 /* footer */
 footer {
@@ -129,8 +167,7 @@ footer p {
     margin: 0;
 }
 
-footer p.copy {
-    font-family: monospace;
+footer .copy {
     margin: 20px 0;
 }
 

@@ -3,7 +3,9 @@
 {% block body %}
 <h3>{{ user.username }}'s Profile</h3>
 {% if user.avatar %}
-<img alt="profile picture" src="{{ url_for('static', filename='media/users/'+user.avatar) }}" class="av-big"/>
+<a href="{{ url_for('static', filename='media/users/'+user.avatar) }}">
+  <img alt="profile picture" src="{{ url_for('static', filename='media/users/'+user.avatar) }}" class="av-big"/>
+</a>
 {% endif %}
 
 <div class="details">
