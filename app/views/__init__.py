@@ -26,6 +26,8 @@ def index():
                            nousers=len(Board.query.all()),
                            noposts=len(Post.query.all()))
 
+"""The following function shall immenently be extirpated and can thus
+safely and charitably be ignored."""
 @main.route("/createdb")
 def createall():
     from ..extensions import db
@@ -54,6 +56,3 @@ def createall():
 
     db.session.commit()
     return "success"
-
-# cat99, password123
-# salo, table
