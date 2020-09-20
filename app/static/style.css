@@ -186,3 +186,26 @@ footer img {
     width: 30px; height: 30px;
     top: 50%;
 }
+/* soy responsiveness stuff */
+@media (max-width: 400px) {
+    .authbtns {
+	float: none;
+    }
+    .btn {
+	float: left;
+	margin-right: 10px;
+	width: 45%;
+    }
+    .btn button {
+	width: 100%;
+    }
+    .secimg {
+	margin: 0 auto 20px;
+	display: block;
+	float: none;
+	width: 70%;
+    }
+    .hotlinks code {
+	height: 0; overflow: hidden;
+    }
+}
